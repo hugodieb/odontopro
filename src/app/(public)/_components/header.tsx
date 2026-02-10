@@ -13,10 +13,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { icons, Menu, UserSearch} from "lucide-react";
+import { Hospital, icons, LogIn, LogOut, Menu, UserSearch} from "lucide-react";
 
 export function Header() {
     const [isOpen, setIsOpen] = useState(false);
+
+    const session = null; // temporário
 
     const navItems = [
         { label: "Profissionais", href: "/dashboard", icon: UserSearch },        
@@ -30,12 +32,25 @@ export function Header() {
                  onClick={() => setIsOpen(false)}
                  key={item.href} variant="ghost" size="sm"
                  className="bg-transparent hover:bg-trasnparent text-black shadow-none">
-                    <Link href={item.href} className="flex items-center gap-2">
+                    <Link href={item.href} className="flex items-center gap-2 text-base">
                         {isOpen? <item.icon className="w-4 h-4" /> : null}
                         {item.label}
                     </Link>
                 </Button>
             ))}
+            {session ? (
+                <Link href="/dashboard"
+                    className="flex items-center justify-center gap-2"
+                >
+                    {isOpen ? <Hospital className="w-4 h-4" /> : null}
+                    Acessar Clínica
+                </Link>
+            ) : (
+                <Button variant="ghost" size="sm" className="bg-green-500 hover:bg-green-400 text-white shadow-none">
+                    <LogIn />
+                    <Link href="/login">Portal da clínica</Link>
+                </Button>
+            )}
         </>
     )
 
