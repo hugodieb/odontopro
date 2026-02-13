@@ -1,9 +1,11 @@
 import { Hero } from "./_components/hero";
+import { Professionals } from "./_components/professionals";
 
 export default function Home() {
   return (
-    <main className="">      
+    <main>      
       <Hero />
+      <Professionals />
     </main>
   );
 }
