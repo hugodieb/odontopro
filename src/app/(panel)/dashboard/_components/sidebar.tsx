@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { Banknote, CalendarCheck2, CreditCard, CreditCardIcon, Home, Layers, List, User } from "lucide-react";
+import { Banknote, CalendarCheck2, ChevronLeft, ChevronRight, CreditCard, CreditCardIcon, Home, Layers, List, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import clsx from "clsx";
@@ -15,6 +15,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import Image from "next/image";
+import logoImg from "../../../../../public/logo-odonto.png"
 
 export function SidebarDashboard({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "";
@@ -23,6 +30,81 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen w-full">
+
+    <aside
+      className={clsx("flex flex-col bg-background border-r transition-all duration-300 p-4 h-full", {
+        "w-20": isCollapsed,
+        "w-64": !isCollapsed,
+        "hidden md:flex md:fixed": true
+      })}
+    >
+      <div className="mb-6 mt-4">
+        {!isCollapsed && (
+          <Image 
+          src={logoImg}
+          alt="OdontoPro"
+          priority
+          quality={100}
+          style={{
+            width: 'auto',
+            height: 'auto'
+          }}
+        />
+        )}
+      </div>
+      <Button className="bg-gray-100 hover:bg-gray-50 text-zinc-900 self-end mb-2"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
+        {!isCollapsed ? <ChevronLeft className="w-12 h-12" /> : <ChevronRight className="w-12 h-12" />}
+      </Button>
+
+      <Collapsible open={!isCollapsed} onOpenChange={setIsCollapsed}>
+        <CollapsibleContent>
+          <nav className="flex flex-col gap-1 overflow-hidden">
+            <span className="text-sm text-gray-500 font-medium uppercase mb-2">
+              Painel
+            </span>
+
+            <SidebarLink
+              href="/dashboard"
+              icon={<CalendarCheck2 />}
+              label="Agendamentos"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+            />
+            <SidebarLink
+              href="/dashboard/services"
+              icon={<Layers />}
+              label="Serviços"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+            />          
+
+            <span className="text-sm text-gray-500 font-medium uppercase mb-2">
+              Painel
+            </span>
+            <SidebarLink
+              href="/dashboard/plans"
+              icon={<Banknote />}
+
+              label="Planos de Assinatura"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+            />
+            <SidebarLink
+              href="/dashboard/profile"
+              icon={<User />}
+              label="Meu Perfil"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+            />
+
+          </nav>
+        </CollapsibleContent>
+      </Collapsible>
+           
+    </aside>
+
       <div className={clsx("flex flex-1 flex-col transition-all duration-300", {
         "md:ml-20": isCollapsed,
         "md:ml-64": !isCollapsed,
