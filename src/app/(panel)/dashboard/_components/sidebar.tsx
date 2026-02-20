@@ -44,19 +44,52 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
           src={logoImg}
           alt="OdontoPro"
           priority
-          quality={100}
-          style={{
-            width: 'auto',
-            height: 'auto'
-          }}
+          quality={100}          
         />
         )}
       </div>
       <Button className="bg-gray-100 hover:bg-gray-50 text-zinc-900 self-end mb-2"
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
-        {!isCollapsed ? <ChevronLeft className="w-12 h-12" /> : <ChevronRight className="w-12 h-12" />}
+        {!isCollapsed ? <ChevronLeft className="w-6 h-6" /> : <ChevronRight className="w-6 h-6" />}
       </Button>
+
+      {isCollapsed && (
+        <nav className="flex flex-col gap-1 overflow-hidden">            
+
+            <SidebarLink
+              href="/dashboard"
+              icon={<CalendarCheck2 />}
+              label="Agendamentos"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+            />
+            <SidebarLink
+              href="/dashboard/services"
+              icon={<Layers />}
+              label="Serviços"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+            />
+            
+            <SidebarLink
+              href="/dashboard/plans"
+              icon={<Banknote />}
+
+              label="Planos de Assinatura"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+            />
+            <SidebarLink
+              href="/dashboard/profile"
+              icon={<User />}
+              label="Meu Perfil"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+            />
+
+          </nav>
+      )}
 
       <Collapsible open={!isCollapsed} onOpenChange={setIsCollapsed}>
         <CollapsibleContent>
@@ -186,6 +219,7 @@ function SidebarLink({ href, icon, label, pathname, isCollapsed }: SidebarLinkPr
       <div className={clsx("flex items-center gap-2 w-full px-1 py-2 rounded transition-colors", {
         "bg-blue-500 text-white": pathname === href,
         "text-gray-700 hover:bg-gray-50": pathname !== href,
+        "justify-center": isCollapsed,
       })}>
       
         <span className="w-6 h-6">{icon}</span>
