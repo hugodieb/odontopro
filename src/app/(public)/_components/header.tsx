@@ -14,11 +14,12 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Hospital, icons, LogIn, LogOut, Menu, UserSearch} from "lucide-react";
+import { useSession } from 'next-auth/react';
+import { handleRegister } from "../_actions/login"
 
 export function Header() {
+    const { data: session, status } = useSession();
     const [isOpen, setIsOpen] = useState(false);
-
-    const session = null; // temporário
 
     const navItems = [
         { label: "Profissionais", href: "/dashboard", icon: UserSearch },        
@@ -38,7 +39,10 @@ export function Header() {
                     </Link>
                 </Button>
             ))}
-            {session ? (
+            
+            { status === 'loading' ? (
+                <></>
+            ) : session ? (
                 <Link href="/dashboard"
                     className="flex items-center justify-center gap-2"
                 >
@@ -46,13 +50,17 @@ export function Header() {
                     Acessar Clínica
                 </Link>
             ) : (
-                <Button variant="ghost" size="sm" className="bg-green-500 hover:bg-green-400 text-white shadow-none">
+                <Button onClick={handleLogin} variant="ghost" size="sm" className="bg-green-500 hover:bg-green-400 text-white shadow-none">
                     <LogIn />
-                    <Link href="/login">Portal da clínica</Link>
+                    <span>Portal da clínica</span>
                 </Button>
             )}
         </>
     )
+
+    async function handleLogin() {
+        await handleRegister("github");
+    }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-999 py-4 px-6 bg-white border-b border-zinc-200">
