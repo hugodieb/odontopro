@@ -13,7 +13,7 @@ export default async function DashboardProfile() {
   const user = await getUserData({ userId: session?.user?.id || "" })
   
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <main className="items-center justify-center">
       <ProfileContent />
     </main>
   );

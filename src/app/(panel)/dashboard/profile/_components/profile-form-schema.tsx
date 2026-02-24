@@ -5,6 +5,7 @@ import { z } from "zod";
 export const profileFormSchema = z.object({
     name: z.string().min(2, "O nome é obrigatório"),
     email: z.string().email("Email inválido"),
+    image: z.string().optional(),
     address: z.string().optional(),
     phone: z.string().optional(),
     status: z.string(),
@@ -19,6 +20,7 @@ export function useProfileForm() {
         defaultValues: {
             name: "",
             email: "",
+            image: "",
             address: "",
             phone: "",
             status: "Ativo",
