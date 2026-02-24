@@ -44,7 +44,7 @@ export function Header() {
                 <></>
             ) : session ? (
                 <Link href="/dashboard"
-                    className="flex items-center justify-center gap-2"
+                    className="flex items-center justify-center gap-2 bg-black text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800"
                 >
                     {isOpen ? <Hospital className="w-4 h-4" /> : null}
                     Acessar Clínica
