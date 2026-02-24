@@ -22,8 +22,10 @@ export async function getUserData({ userId }: getUserDataProps) {
           name: true,
           email: true,
           image: true,
+          address: true,
           phone: true,
-          subscription: true,
+          status: true,
+          timezone: true,          
       }
   })
 
